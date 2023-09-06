@@ -1,13 +1,25 @@
+
 import { saludar, buscarPokemon, buscarPokemonpornombre } from "./controllers/controllers.js"
   
-let root = document.getElementById("root");                  // para leer en el html o llamarlo 
+let root = document.getElementById("root");       // para leer en el html o llamarlo 
 
-async function mostrarpokemon(){
-    let arrayDepokemones = await buscarPokemon();
-    console.log("Estoy dentro de funcion ejemplo", arrayDepokemones); 
+let previousUrl ="";
+let nextUrl =""; 
+
+
+
+async function mostrarpokemon(url){
+
+    let objetPokemon = await buscarPokemon(url);
+     //console.log("Estoy dentro de funcion ejemplo", objetPokemon.arrayDepokemones); 
+     previousUrl = objetPokemon.previous
+     nextUrl = objetPokemon.next
+
+     console.log("BOTON PREV", previousUrl);
+     console.log("BOTON SIGUIE", nextUrl);
 
     let html ="";
-    arrayDepokemones.forEach((pokemon) => {  
+    objetPokemon.arrayDepokemones.forEach((pokemon) => {  
       let cardPokemon =  `<div class= 'card'>                                               
                              <span>${pokemon.nombre}</span>                       
                              <span>${pokemon.id}</span>  
@@ -20,7 +32,7 @@ async function mostrarpokemon(){
         html += cardPokemon;          
     });
 
-     root.innerHTML += html;
+     root.innerHTML = html;
 
 }
 
@@ -50,5 +62,32 @@ botondebusqueda.addEventListener("click", async function(event){
            
     });
 
-    
 
+ /* add event listener que va a ver que btoon clickeo y accionara a otra pagina */
+
+ let previousBtn = document.getElementById("previous")
+ let nextBtn = document.getElementById("next")
+
+
+
+
+ previousBtn.addEventListener("click", async ()=> {
+        //va a llevarme a la pagina anterior
+        //necesito el dato
+        console.log("CLICK EN PREV");
+         mostrarpokemon(previousUrl);
+
+ } )
+
+
+ 
+ nextBtn.addEventListener("click", async ()=> {
+         //va a llevarme a la pagina siguiente
+
+         mostrarpokemon(nextUrl)
+
+
+console.log("CLICK EN NEXT");;
+
+
+} )

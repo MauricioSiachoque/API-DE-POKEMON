@@ -1,8 +1,17 @@
 
+body{
+    height: 100vh;
+    display: flex;  
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: azure;
+}
+
 
 #root{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
 }
 
@@ -11,13 +20,23 @@
     background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);    
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 15%;
     margin: 2px;
-    border-radius: 25px;
+    border-radius: 49px 62px 61px 0px;
+    -webkit-border-radius: 49px 62px 61px 0px;
+    -moz-border-radius: 49px 62px 61px 0px;
+    border: 10px solid white;
 }
 
 .card-image{
-    height: 50px;
-    width: 50px;
-    
+    height: 100px;
+    width: 100px;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

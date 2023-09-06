@@ -4,14 +4,15 @@ export function saludar () {
 
 ///llamados a la API
 
-export async function buscarPokemon(){
- 
-        let data = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=25`);       //para buscar el api
+export async function buscarPokemon(url) {                                // se coloco url ya que es para la el boton siguiente o anterior
+   
+        let data = await fetch( url || `https://pokeapi.co/api/v2/pokemon/`);       //para buscar el api
 
         let dataParseada = await data.json();                   // para parsear, se convierte a jeison
 
-       // console.log(dataParseada.results);                        // array con objetos    [{url},{},{}] y busca uno por uno
+       // console.log(dataParseada.next);                        // array con objetos    [{url},{},{}] y busca uno por uno
         let arrayDepokemones = [];
+
         for (let i = 0; i < dataParseada.results.length; i++) {                 // el array se cambia por el data.parseada
             const pokemon = dataParseada.results[i];                            // y el index se cambia por i
             
@@ -29,8 +30,15 @@ export async function buscarPokemon(){
              arrayDepokemones.push(pokemonFormateado);
            
         }
-             return arrayDepokemones; // [{},{},{}] , es decir se hace un array por cada uno,   se guarda el pokemon en esta variable
+             return {
+                previous: dataParseada.previous,
+                next: dataParseada.next,
+                arrayDepokemones: arrayDepokemones,
+          };
+                       
 }
+
+      
 
 // para el boton de busqueda
 
@@ -48,6 +56,16 @@ export async function buscarPokemonpornombre(nombre){
         //console.log(pokemonFormateado);
         return pokemonFormateado;
 }
+
+
+
+// para realizar la siguientes paginas o anteriores
+
+export async function paginaSiguiente(){}
+
+
+
+export async function paginaAnterior(){}
 
 /* ejecuciones de prueba */
 
